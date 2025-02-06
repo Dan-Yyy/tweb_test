@@ -214,6 +214,11 @@ export default class DialogsContextMenu {
       },
       verify: () => false
     }, {
+      icon: 'comments',
+      text: 'SendHelloWorld',
+      onClick: this.onSendHello,
+      verify: () => true
+    }, {
       icon: 'delete',
       className: 'danger',
       text: 'Delete',
@@ -315,5 +320,10 @@ export default class DialogsContextMenu {
       undefined,
       this.threadId
     );
+  };
+
+  private onSendHello = () => {
+    const {peerId} = this;
+    this.managers.appMessagesManager.sendText({peerId, text: 'Hello World!'})
   };
 }

@@ -12,7 +12,7 @@ app.use((req, res, next) => {
   res.set('Cache-Control', 'no-store');
   next();
 });
-app.get('*', async(req, res) => {
+app.get('*', async (req, res) => {
   const promise = fetch(`http://${host}:${toPort}` + req.url);
   const fetchResponse = await promise;
   fetchResponse.headers.forEach((value, key) => {
@@ -21,7 +21,7 @@ app.get('*', async(req, res) => {
 
   const clone = fetchResponse.clone();
   let text = await fetchResponse.text();
-  if(text.includes(`${host}:${toPort}`)) {
+  if (text.includes(`${host}:${toPort}`)) {
     text = text.replace(`${host}:${toPort}`, `${host}:${fromPort}`);
     res.send(text);
   } else {
