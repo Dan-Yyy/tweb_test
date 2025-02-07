@@ -26,6 +26,7 @@ import wrapEmojiText from '../lib/richTextProcessor/wrapEmojiText';
 import appImManager from '../lib/appManagers/appImManager';
 import assumeType from '../helpers/assumeType';
 import {isForumTopic, isSavedDialog} from '../lib/appManagers/utils/dialogs/isDialog';
+import renderImageFromUrl from '../helpers/dom/renderImageFromUrl';
 
 export default class DialogsContextMenu {
   private buttons: ButtonMenuItemOptionsVerifiable[];
@@ -214,7 +215,7 @@ export default class DialogsContextMenu {
       },
       verify: () => false
     }, {
-      icon: 'comments',
+      customIcon: 'like',
       text: 'SendHelloWorld',
       onClick: this.onSendHello,
       verify: () => true

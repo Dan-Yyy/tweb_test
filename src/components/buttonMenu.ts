@@ -22,6 +22,7 @@ import wrapAttachBotIcon from './wrappers/attachBotIcon';
 import {createRoot} from 'solid-js';
 import {AvatarNew} from './avatarNew';
 import {ActiveAccountNumber} from '../lib/accounts/types';
+import renderCustomIcon, {CustomIconType} from './customIcon';
 
 type ButtonMenuItemInner = Omit<Parameters<typeof ButtonMenuSync>[0], 'listenerSetter'>;
 type AvatarInfo = {
@@ -33,6 +34,7 @@ type AvatarInfo = {
 export type ButtonMenuItemOptions = {
   id?: any;
   icon?: Icon,
+  customIcon?: CustomIconType
   emptyIcon?: boolean,
   iconDoc?: Document.document,
   avatarInfo?: AvatarInfo,
@@ -71,6 +73,7 @@ function ButtonMenuItem(options: ButtonMenuItemOptions) {
 
   const {
     icon,
+    customIcon,
     iconDoc,
     avatarInfo,
     className,
@@ -97,6 +100,13 @@ function ButtonMenuItem(options: ButtonMenuItemOptions) {
     const iconPlaceholder = document.createElement('span');
     iconPlaceholder.classList.add('btn-menu-item-icon');
     el.append(iconPlaceholder);
+  }
+
+  if(customIcon) {
+    renderCustomIcon(customIcon).then((element) => {
+      element.classList.add('btn-menu-item-icon');
+      el.insertBefore(element, el.firstChild);
+    })
   }
 
   let textElement = options.textElement;
